@@ -12,8 +12,6 @@ class CourseCreated extends ShouldBeStored
         public string      $name,
         public string      $code,
         public string      $description,
-        public Carbon|null $startDate = null,
-        public Carbon|null $endDate = null,
     )
     {
     }

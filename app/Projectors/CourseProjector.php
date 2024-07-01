@@ -16,8 +16,6 @@ class CourseProjector extends Projector
             'name' => $event->name,
             'description' => $event->description,
             'code' => $event->code,
-            'start_date' => $event->startDate,
-            'end_date' => $event->endDate,
         ];
 
         if (CourseProjection::query()->where('uuid', $event->aggregateRootUuid())->exists()) {
