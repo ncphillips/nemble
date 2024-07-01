@@ -32,7 +32,40 @@ class CourseTest extends TestCase
             ));
     }
 
-    public function test_schedule_a_course()
+    public function test_schedule_a_course_during_creation()
+    {
+        $userId = 1;
+        $startDate = now();
+        $endDate = now()->addDays(7);
+
+        $course = Course::fake()
+            ->when(fn(Course $course) => $course->create(
+                createdByUserId: $userId,
+                name: 'Test Course',
+                code: 'TEST',
+                description: 'This is a test course',
+                startDate: $startDate,
+                endDate: $endDate
+            ))
+            ->assertRecorded([
+                new CourseCreated(
+                    createdByUserId: $userId,
+                    name: 'Test Course',
+                    code: 'TEST',
+                    description: 'This is a test course',
+                ),
+                new CourseScheduled(
+                    changedByUserId: $userId,
+                    startDate: $startDate,
+                    endDate: $endDate,
+                )
+            ])->aggregateRoot();
+
+        $this->assertEquals($startDate, $course->startDate);
+        $this->assertEquals($endDate, $course->endDate);
+    }
+
+    public function test_schedule_a_course_after_creation()
     {
         $userId = 1;
         $startDate = now();

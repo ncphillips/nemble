@@ -30,9 +30,15 @@ class Course extends AggregateRoot
             name: $name,
             code: $code,
             description: $description,
-            startDate: $startDate,
-            endDate: $endDate
         ));
+
+        if ($startDate && $endDate) {
+            $this->schedule(
+                changedByUserId: $createdByUserId,
+                startDate: $startDate,
+                endDate: $endDate
+            );
+        }
 
         return $this;
     }
