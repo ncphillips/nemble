@@ -12,13 +12,15 @@
         </li>
       </ul>
       <p v-else>
-        You have no courses.
+        You have no courses. <NavLink :href="route('course.create')">Create Course</NavLink>
       </p>
+
     </section>
   </authenticated-layout>
 </template>
 <script setup lang="ts">
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import NavLink from "@/Components/NavLink.vue";
 
 defineProps<{
   courses: any[]
