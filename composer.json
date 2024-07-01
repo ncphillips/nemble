@@ -10,7 +10,9 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "spatie/laravel-data": "^4.7",
         "spatie/laravel-event-sourcing": "^7.6",
+        "spatie/laravel-typescript-transformer": "^2.4",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {

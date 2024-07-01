@@ -4,8 +4,10 @@
     "scripts": {
         "dev": "vite",
         "build": "vue-tsc && vite build",
-        "ziggy": "npm run ziggy:generate",
-        "ziggy:generate": "vendor/bin/sail artisan ziggy:generate"
+        "artisan": "vendor/bin/sail artisan",
+        "api": "npm run api:routes && npm run api:types",
+        "api:routes": "npm run artisan ziggy:generate",
+        "api:types": "npm run artisan typescript:transform"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
