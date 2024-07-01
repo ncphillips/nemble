@@ -42,10 +42,10 @@ class CourseController extends Controller
 
         Course::retrieve($uuid)
             ->create(
-                $user->id,
-                $data['name'],
-                $data['description'],
-                $data['code']
+                createdByUserId: $user->id,
+                name: $data['name'],
+                code: $data['code'],
+                description: $data['description']
             )
             ->persist();
 
