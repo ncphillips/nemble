@@ -11,16 +11,7 @@ class CourseController extends Controller
     public function index()
     {
         return inertia('Course/Index', [
-            'courses' => CourseProjection::all()->map(function (CourseProjection $projection) {
-                $course = Course::retrieve($projection->uuid);
-
-                return [
-                    'uuid' => $projection->uuid,
-                    'name' => $course->name,
-                    'description' => $course->description,
-                    'code' => $course->code,
-                ];
-            }),
+            'courses' => CourseProjection::all(),
         ]);
     }
 
