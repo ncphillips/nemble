@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('course_projections', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            $table->string('name');
+            $table->string('code');
+            $table->text('description');
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }

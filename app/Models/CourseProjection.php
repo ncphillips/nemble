@@ -12,5 +12,12 @@ class CourseProjection extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['uuid'];
+    protected $fillable = [
+        'uuid',
+        'name',
+        'description',
+        'code',
+        'start_date',
+        'end_date'
+    ];
 }
