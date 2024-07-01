@@ -1,0 +1,26 @@
+<template>
+  <authenticated-layout>
+    <template #header>
+      <h1 class="text-2xl font-bold">
+        Courses
+      </h1>
+    </template>
+    <section class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+      <ul v-if="courses.length">
+        <li v-for="course in courses" :key="course.id">
+          {{ course.code }}
+        </li>
+      </ul>
+      <p v-else>
+        You have no courses.
+      </p>
+    </section>
+  </authenticated-layout>
+</template>
+<script setup lang="ts">
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+
+defineProps<{
+  courses: any[]
+}>();
+</script>
