@@ -3,6 +3,7 @@
 namespace App\Aggregates;
 
 use App\StorableEvents\CourseCreated;
+use App\StorableEvents\CourseScheduled;
 use Carbon\Carbon;
 use Spatie\EventSourcing\AggregateRoots\AggregateRoot;
 
@@ -35,11 +36,32 @@ class Course extends AggregateRoot
         return $this;
     }
 
+    public function schedule(
+        int    $changedByUserId,
+        Carbon $startDate,
+        Carbon $endDate
+    ): self
+    {
+        $this->recordThat(new CourseScheduled(
+            changedByUserId: $changedByUserId,
+            startDate: $startDate,
+            endDate: $endDate
+        ));
+
+        return $this;
+    }
+
     protected function handleCourseCreated(CourseCreated $event)
     {
         $this->name = $event->name;
         $this->code = $event->code;
         $this->description = $event->description;
+        $this->startDate = $event->startDate;
+        $this->endDate = $event->endDate;
+    }
+
+    protected function handleCourseScheduled(CourseScheduled $event)
+    {
         $this->startDate = $event->startDate;
         $this->endDate = $event->endDate;
     }
