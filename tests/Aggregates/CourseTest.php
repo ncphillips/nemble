@@ -4,6 +4,7 @@ namespace Tests\Aggregates;
 
 use App\Aggregates\Course;
 use App\StorableEvents\CourseCreated;
+use App\StorableEvents\CourseRescheduled;
 use App\StorableEvents\CourseScheduled;
 use PHPUnit\Framework\TestCase;
 
@@ -57,7 +58,40 @@ class CourseTest extends TestCase
 
         $this->assertEquals($startDate, $course->startDate);
         $this->assertEquals($endDate, $course->endDate);
+    }
 
+    public function test_reschedule_a_course()
+    {
+        $userId = 1;
+        $startDate = now();
+        $endDate = now()->addDays(7);
+        $newStartDate = $startDate->addDays(4);
+        $newEndDate = $startDate->addDays(8);
+
+        $course = Course::fake()
+            ->given([new CourseCreated(
+                createdByUserId: $userId,
+                name: 'Test Course',
+                code: 'TEST',
+                description: 'This is a test course',
+            ), new CourseScheduled(
+                changedByUserId: $userId,
+                startDate: $startDate,
+                endDate: $endDate
+            )])
+            ->when(fn(Course $course) => $course->schedule(
+                changedByUserId: $userId,
+                startDate: $newStartDate,
+                endDate: $newEndDate
+            ))
+            ->assertRecorded(new CourseRescheduled(
+                changedByUserId: $userId,
+                startDate: $newStartDate,
+                endDate: $newEndDate
+            ))->aggregateRoot();
+
+        $this->assertEquals($newStartDate, $course->startDate);
+        $this->assertEquals($newEndDate, $course->endDate);
     }
 
 }
