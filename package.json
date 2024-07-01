@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vue-tsc && vite build"
+        "build": "vue-tsc && vite build",
+        "ziggy": "npm run ziggy:generate",
+        "ziggy:generate": "vendor/bin/sail artisan ziggy:generate"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",

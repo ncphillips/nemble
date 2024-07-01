@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
 Route::name('course.')->prefix('/courses')->group(function() {
     Route::name('index')->get('/', [CourseController::class, 'index']);
+    Route::name('create')->get('/create', [CourseController::class, 'create']);
+    Route::name('store')->post('', [CourseController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';
