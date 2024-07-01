@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Aggregates\Course;
+use App\Data\CourseCreationData;
 use App\Models\CourseProjection;
 use Illuminate\Support\Str;
 
@@ -20,23 +21,18 @@ class CourseController extends Controller
         return inertia('Course/Create');
     }
 
-    public function store()
+    public function store(CourseCreationData $data)
     {
         $user = auth()->user();
-        $data = request()->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'code' => 'required',
-        ]);
 
         $uuid = (string)Str::uuid();
 
         Course::retrieve($uuid)
             ->create(
                 createdByUserId: $user->id,
-                name: $data['name'],
-                code: $data['code'],
-                description: $data['description']
+                name: $data->name,
+                code: $data->code,
+                description: $data->description
             )
             ->persist();
 

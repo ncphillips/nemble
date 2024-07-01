@@ -32,9 +32,10 @@
 <script setup lang="ts">
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { useForm } from "@inertiajs/vue3";
+import CourseCreationData = App.Data.CourseCreationData;
 
 
-const form = useForm({
+const form = useForm<CourseCreationData>({
   name: "",
   code: "",
   description: ""
